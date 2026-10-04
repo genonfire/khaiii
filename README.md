@@ -111,3 +111,10 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
+
+macOS arm64 native build (fork)
+----
+이 포크는 카카오 공식 khaiii **v0.4** (`fa5fbd10aeddfe97cd7aa87faee39628e5e9c18a`)의 *빌드 호환/패키징/릴리스 자동화*만 담당합니다. 모델과 분석 로직은 업스트림과 동일하며 새로운 형태소 모델이 아닙니다. This fork only provides build-compatibility, packaging and release automation for upstream khaiii v0.4; it is an upstream-derived binary, not a new morphological model.
+
+- GitHub Actions `build-macos-arm64` (`workflow_dispatch`, `macos-15`)가 `libkhaiii.dylib`와 `share/khaiii`, Python ctypes 바인딩을 `khaiii-0.4-macos-arm64.tar.gz`로 묶고, 압축을 푼 결과만으로 스모크 테스트를 수행합니다. 스크립트는 `scripts/macos/`에 있습니다.
+- 사용법, 요구 사항(Apple Silicon, 테스트: macOS 15), 서명/공증 안내는 [scripts/macos/INSTALL.md](scripts/macos/INSTALL.md)를 참고하세요. 바이너리는 ad-hoc 서명이며 **Apple 공증(notarization)을 받지 않았습니다**.
