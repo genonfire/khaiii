@@ -55,7 +55,8 @@ json.dump({
 PY
 
 # manifest of every file in the bundle (excluding itself)
-( cd "$OUT/stage" && find "$PKG_NAME" -type f ! -name MANIFEST.sha256 | LC_ALL=C sort | xargs shasum -a 256 > "$PKG_NAME/MANIFEST.sha256" )
+# (paths relative to the package root so `shasum -c MANIFEST.sha256` works from inside it)
+( cd "$STAGE" && find . -type f ! -name MANIFEST.sha256 | LC_ALL=C sort | xargs shasum -a 256 > MANIFEST.sha256 )
 
 # archive (+ checksum of the archive, kept outside the archive)
 ( cd "$OUT/stage" && tar -czf "$OUT/$PKG_NAME.tar.gz" "$PKG_NAME" )
