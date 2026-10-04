@@ -71,7 +71,7 @@ jobs:
       - name: Verify packaged library (post install_name_tool / strip / codesign)
         run: |
           . scripts/macos/env.sh
-          scripts/macos/verify_binary.sh "$RUNNER_TEMP/out/stage/$PKG_NAME/lib/libkhaiii.dylib"
+          scripts/macos/verify_binary.sh "$RUNNER_TEMP/out/stage/$PKG_NAME/lib/libkhaiii.dylib" "@rpath/libkhaiii.dylib"
           codesign --verify --verbose "$RUNNER_TEMP/out/stage/$PKG_NAME/lib/libkhaiii.dylib"
           if strings "$RUNNER_TEMP/out/stage/$PKG_NAME/lib/libkhaiii.dylib" | grep -E "$GITHUB_WORKSPACE|$RUNNER_TEMP|/Users/runner"; then
             echo "FATAL: runner paths embedded in library" >&2; exit 1
