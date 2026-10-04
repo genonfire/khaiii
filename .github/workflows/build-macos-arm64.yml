@@ -1,8 +1,10 @@
 name: build-macos-arm64
 
-# Manual only. Builds khaiii v0.4 natively on a GitHub-hosted Apple Silicon runner,
-# smoke-tests the extracted archive, and (optionally) publishes a GitHub Release.
+# Builds khaiii v0.4 natively on a GitHub-hosted Apple Silicon runner and smoke-tests the
+# extracted archive on every PR update. Publishing a Release is manual (workflow_dispatch)
+# and only honoured on the default branch, after merge.
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       release_tag:
@@ -18,8 +20,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: build-macos-arm64
-  cancel-in-progress: false
+  group: build-macos-arm64-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
